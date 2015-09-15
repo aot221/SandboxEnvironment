@@ -89,8 +89,6 @@ def sandbox():
     while (loggedIn == True):
 
         userRequest = raw_input("Type some code to run or '0' to quit: \n")
-        userRequestParce = userRequest.translate(None, '+-/=*')
-        #Removes operators from the user's code so that the regular expressions can
         try:
             if not(re.match("^[0-9]*$",userRequest ) or
                        re.match("fib",userRequest) or
