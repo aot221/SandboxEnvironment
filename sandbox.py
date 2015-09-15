@@ -14,7 +14,18 @@ with open('passwords.txt') as f:
 PASSARR = map(lambda t: t.strip('\n'), PASSARR)
 #print PASSARR
 
+def updateUserInfo():
+#updates the username and password files holding your hash info
+    with open('usernames.txt') as f:
+        USERARR = f.readlines()
+    USERARR = map(lambda s: s.strip('\n'), USERARR)
+    #print USERARR
+    with open('passwords.txt') as f:
+        PASSARR = f.readlines()
+    PASSARR = map(lambda t: t.strip('\n'), PASSARR)
+
 def createAccount():
+    #Registers an account into the username/password files
     print "creating account... \n"
     username = raw_input("Enter your username here: ")
     password = raw_input("Enter your password here: ")
@@ -27,7 +38,8 @@ def createAccount():
     p = open('passwords.txt','a')
     p.write(hash)
     p.write("\n")
-    print hash + "\n"
+    #print hash + "\n"
+    updateUserInfo()
 
 def checkPassword(password):
     print "checking password..."
@@ -78,12 +90,14 @@ def sandbox():
 
         userRequest = raw_input("Type some code to run or '0' to quit: \n")
         userRequestParce = userRequest.translate(None, '+-/=*')
+        #Removes operators from the user's code so that the regular expressions can
         try:
-            if not(re.match("^[0-9]*$",userRequestParce ) or
-                       re.match("fib",userRequestParce) or
-                       re.match("powersTwo", userRequestParce) or
-                       re.match("print", userRequestParce)):
-                print "Illegal characters are in your code. This is strictly for computation \n"
+            if not(re.match("^[0-9]*$",userRequest ) or
+                       re.match("fib",userRequest) or
+                       re.match("powersTwo", userRequest) or
+                       re.match("print", userRequest) or
+                        re.match("+=-/"), userRequest):
+                print "Illegal characters are in your code. This is strictly for computation and 'print' \n"
         except Exception:
             pass
         else:
